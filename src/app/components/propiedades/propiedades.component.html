@@ -1,0 +1,177 @@
+<div class="container-fluid">
+    <div class="row main-style">
+        <div class="col-12 d-flex justify-content-center align-items-center slider">
+            <div class="cover"></div>
+            <img [src]="_ruta+'assets/images/bg/bg6.jpg'">
+            <h1 class="text-white mt-5">Propiedades</h1>
+        </div>
+        <div class="col-12 d-block d-lg-flex propiedades mt-4">
+            <div class="row mb-3 justify-content-center">
+                <div class="col-auto buscar">
+                    <form #buscarForm="ngForm">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h5>
+                                    <fa-icon [icon]="faSearch" class="mr-1"></fa-icon> Buscar Propiedades
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <label for="estado">¿Venta o Alquiler?</label>
+                                <select name="estado" class="custom-select mb-3" #estado [(ngModel)]="searchModel.estado"
+                                    (change)="onChange($event)">
+                                    <option value="0" class="text-danger">Cualquiera</option>
+                                    <option *ngFor="let data of estados" [value]="data.nombre">{{data.nombre}}</option>
+                                </select>
+
+                                <label for="categoria">Categoría:</label>
+                                <select name="categoria" class="custom-select mb-3" #categoria [(ngModel)]="searchModel.categoria"
+                                    (change)="onChange($event)">
+                                    <option value="0" class="text-danger">Cualquiera</option>
+                                    <option *ngFor="let data of categorias" [value]="data.nombre">{{data.nombre}}</option>
+                                </select>
+
+                                <label for="ubicacion">Ubicación:</label>
+                                <select name="ubicacion" class="custom-select mb-3" #ubicacion [(ngModel)]="searchModel.ubicacion"
+                                    (change)="onChange($event)">
+                                    <option value="0" class="text-danger">Cualquiera</option>
+                                    <option *ngFor="let data of ubicaciones" [value]="data.nombre">{{data.nombre}}</option>
+                                </select>
+
+                                <p class="mb-2">Habitaciones:</p>
+                                <div class="btn-group btn-group-toggle mb-3 w-100" data-toggle="buttons" (change)="onChange($event)">
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" name="habitaciones" id="1" autocomplete="off" 
+                                            [value]="'1'" [(ngModel)]="searchModel.habitaciones">1+
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" name="habitaciones" id="2" autocomplete="off"
+                                            [value]="'2'" [(ngModel)]="searchModel.habitaciones">2+
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" name="habitaciones" id="3" autocomplete="off"
+                                            [value]="'3'" [(ngModel)]="searchModel.habitaciones">3+
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" name="habitaciones" id="4" autocomplete="off"
+                                            [value]="'4'" [(ngModel)]="searchModel.habitaciones">4+
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" name="habitaciones" id="5" autocomplete="off"
+                                            [value]="'5'" [(ngModel)]="searchModel.habitaciones">5+
+                                    </label>                                    
+                                </div>
+
+                                <p class="mb-2">Baños:</p>
+                                <div class="btn-group btn-group-toggle mb-3 w-100" data-toggle="buttons" (change)="onChange($event)">
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" name="banos" id="1" autocomplete="off"
+                                            [value]="'1'" [(ngModel)]="searchModel.banos">1+
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" name="banos" id="2" autocomplete="off"
+                                            [value]="'2'" [(ngModel)]="searchModel.banos">2+
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" name="banos" id="3" autocomplete="off"
+                                            [value]="'3'" [(ngModel)]="searchModel.banos">3+
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" name="banos" id="4" autocomplete="off"
+                                            [value]="'4'" [(ngModel)]="searchModel.banos">4+
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" name="banos" id="5" autocomplete="off"
+                                            [value]="'5'" [(ngModel)]="searchModel.banos">5+
+                                    </label>
+                                </div>
+
+                                <label for="precioI">Precio Desde:</label>
+                                <select name="precioI" class="custom-select mb-3" #precioI [(ngModel)]="searchModel.precioI"
+                                    (change)="onChange($event)">
+                                    <option *ngFor="let data of precioIA" [value]="data">{{numberWithCommas(data)}}</option>
+                                </select>
+                                <label for="precioF">Precio Hasta:</label>
+                                <select name="precioF" class="custom-select mb-3" #precioF [(ngModel)]="searchModel.precioF"
+                                    (change)="onChange($event)">
+                                    <option *ngFor="let data of precioFA; let i = index" [value]="data">{{numberWithCommas(data)}}<span *ngIf="i==precioFA.length-1"> +</span></option>
+                                </select>
+                                <div class="btn-group btn-group-toggle w-100 mb-3" data-toggle="buttons" (change)="onChange($event)">
+                                    <label class="btn btn-outline-primary" *ngFor="let m of monedas; let i = index">
+                                        <input type="radio" name="moneda" [value]="m.nombre" [(ngModel)]="searchModel.moneda">{{m.nombre}}
+                                    </label>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Código</span>
+                                    </div>                    
+                                    <input type="text" name="codigo" class="form-control" placeholder="000000" #codigo="ngModel"
+                                        [(ngModel)]="codigoSearch" (input)="goSearchCodigo()">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center w-100 informacion mx-2">
+                <div class="col-12 text-center mb-4" *ngIf="propiedadesP == null && dataSearchEmpty" style="max-height: 40px;">
+                    <h2 class="text-danger">Búsqueda sin resultados</h2>                    
+                </div>
+                <div class="col-12 text-center mb-4" *ngIf="propiedadesP == null && !dataSearchEmpty">
+                    <img [src]="_ruta+'assets/images/resources/loading7.gif'" alt="Cargando...." width="300px">
+                </div>
+                <div class="col-12 text-center mb-4" *ngIf="propiedadesP != null && propiedadesP.length == 0">
+                    <h2 class="text-danger">No hay propiedades a mostrar...</h2>
+                </div>                
+                <div class="col-auto" *ngIf="propiedadesP != null && propiedadesP.length > 0">
+                    <div class="card-columns">
+                        <div class="card" *ngFor="let pro of propiedadesP">
+                            <span class="badge badge-primary m-2" *ngIf="pro.estadoOrden==1">{{pro.estado}}</span>
+                            <span class="badge badge-success m-2" *ngIf="pro.estadoOrden==2">{{pro.estado}}</span>
+                            <img [src]="_data+'img/'+pro.imagen" class="card-img-top img-fluid" [alt]="pro.nombre">
+                            <div class="card-body">
+                                <h3 class="card-title">{{pro.nombre}}</h3>
+                                <b>Precio:</b> <span class="precio ml-2">{{pro.moneda+numberWithCommas(pro.precio)}}</span>
+                                <p class="card-text mt-1">
+                                    <fa-icon [icon]="faMapPin"></fa-icon> {{pro.ubicacion}}
+                                    <br/>
+                                    <fa-icon [icon]="faBed"></fa-icon> {{pro.habitaciones}} Habitaciones
+                                    <br/>
+                                    <fa-icon [icon]="faToilet"></fa-icon> {{pro.banos}} Baños
+                                    <br/>
+                                    <fa-icon [icon]="faArrowsAlt"></fa-icon> {{pro.area+' '+pro.medida}}
+                                </p>
+                                <a [routerLink]="['/pro-single', pro.codigo]" class="btn btn-primary btn-block btn-bg">Ver más</a>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="col-12 d-flex justify-content-center mt-3">
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item" [ngClass]="{'disabled': paginaActual == 1}">
+                                    <span class="page-link" *ngIf="paginaActual == 1">
+                                        <fa-icon [icon]="faAngleDoubleLeft"></fa-icon>
+                                    </span>
+                                    <a class="page-link" (click)="link(prevPage())" *ngIf="paginaActual != 1" style="cursor: pointer;">
+                                        <fa-icon [icon]="faAngleDoubleLeft"></fa-icon>
+                                    </a>
+                                </li>
+                                <li class="page-item" *ngFor="let np of createRange(totalPaginas)" [ngClass]="{'active': paginaActual == np}">
+                                    <span class="page-link" *ngIf="paginaActual == np">{{np}}</span>
+                                    <a (click)="link(np)" class="page-link" *ngIf="paginaActual != np" style="cursor: pointer;">{{np}}</a>
+                                </li>   
+                                <li class="page-item" [ngClass]="{'disabled': paginaActual == totalPaginas}">
+                                    <span class="page-link" *ngIf="paginaActual == totalPaginas">
+                                        <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+                                    </span>
+                                    <a class="page-link" (click)="link(nextPage())" *ngIf="paginaActual != totalPaginas" style="cursor: pointer;">
+                                        <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

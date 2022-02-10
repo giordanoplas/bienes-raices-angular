@@ -1,0 +1,194 @@
+<header class="container-fluid">
+    <div class="row d-flex justify-content-center align-items-center my-3">
+        <div class="col-12 col-md-auto logo d-flex justify-content-between">
+            <a [routerLink]="['/']" class="p-3 rounded-circle">
+                <img [src]="_ruta+'assets/images/logotipos/logo.png'" alt="Tu Inmueble Perfecto" width="200px"
+                    class="img img-fluid">
+            </a>
+            <button (click)="menuIconClick($event)" class="d-flex d-md-none align-items-center mr-2 menu-icon btn">
+                <fa-icon [icon]="faBars"></fa-icon>
+            </button>
+        </div>
+        <div class="col-12 col-md-auto d-none d-md-flex menu">
+            <nav class="nav">
+                <a [routerLink]="['/home']" [routerLinkActive]="['selected']" class="nav-link text-light">Inicio</a>
+                <a [routerLink]="['/nosotros']" [routerLinkActive]="['selected']"
+                    class="nav-link text-light">Nosotros</a>
+                <a [routerLink]="['/miami']" [routerLinkActive]="['selected']" class="nav-link text-light">Miami</a>
+                <a [routerLink]="['/propiedades']" [routerLinkActive]="['selected']"
+                    class="nav-link text-light">Propiedades</a>
+                <a [routerLink]="['/agentes']" [routerLinkActive]="['selected']" class="nav-link text-light">Agentes</a>
+                <a [routerLink]="['/galeria']" [routerLinkActive]="['selected']" class="nav-link text-light">Galería</a>
+                <a [routerLink]="['/contacto']" [routerLinkActive]="['selected']"
+                    class="nav-link text-light">Contáctenos</a>
+            </nav>
+        </div>
+        <div class="col-auto col-md-3 login d-none d-md-block" *ngIf="!userLogin || userLogin.length === 0">
+            <button class="btn btn-primary w-100 mb-1" (click)="loginModal(modal)">Login</button>
+            <div class="wrap">
+                <button class="btn btn-secondary w-100" (click)="registroModal(modal2)">Registrarse</button>
+            </div>            
+        </div>
+        <div class="col-auto col-md-3 info-login d-none d-md-block text-center" *ngIf="userLogin && userLogin.length > 0">
+            <p class="mb-0">Bienvenido:<br/>{{nameLogin}}</p>
+            <button class="btn btn-link py-0" (click)="cerrarSesion()">Cerrar Sesión</button>
+        </div>
+        <ng-template #modal let-modal>
+            <div class="modal-header">
+                <h5 class="modal-title text-info">Iniciar Sesión</h5>
+                <button class="close" (click)="closeModal($event)" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #loginForm="ngForm" (ngSubmit)="goLogin()">
+                    <div class="input-group-lg my-3">
+                        <input type="text" name="usuario" class="form-control" placeholder="Usuario" #usuario="ngModel"
+                            [(ngModel)]="userString" required>
+                        <small class="text-danger" *ngIf="!usuario.valid && usuario.touched">
+                            <b>Escribe un usuario válido</b>
+                        </small>
+                        <input type="password" name="password" class="form-control mt-2" placeholder="Contraseña"
+                            #password="ngModel" [(ngModel)]="passString" required>
+                        <small class="text-danger" *ngIf="!password.valid && password.touched">
+                            <b>Escribe una contraseña válida</b>
+                        </small>
+                    </div>
+
+                    <div class="input-group-lg my-3">
+                        <small class="text-danger" *ngIf="loginError == true">
+                            <b>Datos incorrectos o no encontrados...</b>
+                        </small>
+                    </div>                    
+                    <button class="btn btn-primary mr-1" [disabled]="loginForm.invalid"> 
+                        <img [src]="_ruta+'assets/images/resources/loading7.gif'" alt="loading" width="25px" class="mr-1"
+                            *ngIf="progress">
+                        Iniciar Sesión
+                    </button>
+                    <button class="btn btn-link" (click)="reqPass($event)">¿Olvidaste la contraseña?</button>
+                </form>
+            </div>
+        </ng-template>
+
+        <ng-template #modal2 let-modal>
+            <div class="modal-header">
+                <h5 class="modal-title text-secondary">Registrarse</h5>
+                <button class="close" (click)="closeModal($event)" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #registroForm="ngForm" (ngSubmit)="goRegistro()">
+                    <div class="input-group-lg my-3">
+                        <input type="text" name="nombre" class="form-control" placeholder="Nombre" #nombre="ngModel"
+                            [(ngModel)]="nombreString" required>
+                        <small class="text-danger" *ngIf="!nombre.valid && nombre.touched">
+                            <b>Escribe un nombre válido</b>
+                        </small>
+                    </div>
+
+                    <div class="input-group-lg my-3">
+                        <input type="text" name="usuario" class="form-control" placeholder="Usuario" #usuario="ngModel"
+                            [(ngModel)]="userRegString" required>
+                        <small class="text-danger" *ngIf="!usuario.valid && usuario.touched">
+                            <b>Escribe un usuario válido</b>
+                        </small>
+                    </div>
+
+                    <div class="input-group-lg my-3">
+                        <input type="password" name="password" class="form-control mt-2" placeholder="Contraseña"
+                            #password="ngModel" [(ngModel)]="passRegString" required>
+                        <small class="text-danger" *ngIf="!password.valid && password.touched">
+                            <b>Escribe una contraseña válida</b>
+                        </small>
+                    </div>
+
+                    <div class="input-group-lg my-3">
+                        <input type="password" name="passwordRepetir" class="form-control mt-2"
+                            placeholder="Repetir Contraseña" #passwordRepetir="ngModel" [(ngModel)]="passRepetirString"
+                            (input)="onTextChangePass($event)" required>
+                        <small class="text-danger"
+                            *ngIf="!passwordRepetir.valid && passwordRepetir.touched || !passValid">
+                            <b>Debes repetir la contraseña</b>
+                        </small>
+                    </div>
+
+                    <div class="input-group-lg my-3">
+                        <input type="email" name="email" class="form-control" placeholder="Email" #email="ngModel"
+                            [(ngModel)]="emailString" (input)="onTextChangeEmail($event)" required>
+                        <small class="text-danger" *ngIf="!email.valid && email.touched || !emailValid">
+                            <b>Escribe un correo válido</b>
+                        </small>
+                    </div>
+
+                    <div class="input-group-lg my-3">
+                        <input type="text" name="telefono" class="form-control mt-2" placeholder="Teléfono"
+                            #telefono="ngModel" [(ngModel)]="telefonoString">
+                        <small class="text-danger" *ngIf="!telefono.valid && telefono.touched">
+                            <b>Escribe una teléfono válido</b>
+                        </small>
+                    </div>
+
+                    <div class="input-group-lg my-3">
+                        <small class="text-danger" *ngIf="registroError == true">
+                            <b>{{errorMsn}}</b>
+                        </small>
+                    </div>                   
+
+                    <button class="btn btn-secondary mr-1 " [disabled]="registroForm.invalid || !emailValid || !passValid">
+                        <img [src]="_ruta+'assets/images/resources/loading7.gif'" alt="loading" width="25px" class="mr-1"
+                            *ngIf="progress">
+                        Registrarse
+                    </button>
+                    <button class="btn btn-secondary" (click)="closeModal($event)">Cerrar</button>
+                </form>
+            </div>
+        </ng-template>
+    </div>
+
+    <!-- Barra lateral izquierda -->
+    <div class="col-md-3 barra-lateral-izquierda" id="barra-lateral-izquierda">
+        <div class="d-flex justify-content-center my-3 logo">
+            <a [routerLink]="['/']" class="p-3 rounded-circle">
+                <img [src]="_ruta+'assets/images/logotipos/logo.png'" alt="Tu Inmueble Perfecto" width="150px"
+                    class="img img-fluid">
+            </a>
+        </div>
+        <nav>
+            <a [routerLink]="['/home']" [routerLinkActive]="['selected']" (click)="fondoEnlaceClick($event)">
+                <fa-icon [icon]="faHome"></fa-icon> Inicio
+            </a>
+            <a [routerLink]="['/nosotros']" [routerLinkActive]="['selected']" (click)="fondoEnlaceClick($event)">
+                <fa-icon [icon]="faUserFriends"></fa-icon> Nosotros
+            </a>
+            <a [routerLink]="['/miami']" [routerLinkActive]="['selected']" (click)="fondoEnlaceClick($event)">
+                <fa-icon [icon]="faFlagUsa"></fa-icon> Miami
+            </a>
+            <a [routerLink]="['/propiedades']" [routerLinkActive]="['selected']" (click)="fondoEnlaceClick($event)">
+                <fa-icon [icon]="faBuilding"></fa-icon> Propiedades
+            </a>
+            <a [routerLink]="['/agentes']" [routerLinkActive]="['selected']" (click)="fondoEnlaceClick($event)">
+                <fa-icon [icon]="faUserTie"></fa-icon> Agentes
+            </a>
+            <a [routerLink]="['/galeria']" [routerLinkActive]="['selected']" (click)="fondoEnlaceClick($event)">
+                <fa-icon [icon]="faImages"></fa-icon> Galería
+            </a>
+            <a [routerLink]="['/contacto']" [routerLinkActive]="['selected']" (click)="fondoEnlaceClick($event)">
+                <fa-icon [icon]="faIdCardAlt"></fa-icon> Contáctenos
+            </a>
+        </nav>
+        <div class="d-flex flex-column align-items-center mb-4" 
+            *ngIf="!userLogin || userLogin.length === 0">
+            <button class="btn btn-info w-50 mb-1" (click)="loginModal(modal)">Login</button>
+            <button class="btn btn-secondary w-50" (click)="registroModal(modal2)">Registrarse</button>
+        </div>
+
+        <div class="d-flex flex-column align-items-center text-center text-white mb-4" 
+            *ngIf="userLogin && userLogin.length > 0">
+            <p class="mb-1">Bienvenido:<br/>{{nameLogin}}</p>
+            <button class="btn btn-outline-light" (click)="cerrarSesion()">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <a href="#" (click)="fondoEnlaceClick($event)" class="fondo-enlace d-md-none" id="fondo-enlace"></a>
+</header>

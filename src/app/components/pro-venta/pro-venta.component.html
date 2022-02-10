@@ -1,0 +1,64 @@
+<h4>Propiedades</h4>
+<h2>En Venta</h2>
+<p class="mb-2">Echa un vistazo a las últimas propiedades en venta.</p>
+<div class="row text-center" *ngIf="propiedadesP == null">
+    <div class="col">
+        <img [src]="_ruta+'assets/images/resources/loading7.gif'" alt="Cargando...." width="200px">
+    </div>
+</div>
+<div class="row d-flex justify-content-center" *ngIf="propiedadesP != null">
+    <div class="col-auto mt-2" *ngFor="let pro of propiedadesP; let i = index">
+        <div class="card" [ngClass]="{'destacado': pro.destacado==1, 'vendido': pro.vendido==1}" style="max-width: 18rem;">            
+            <img class="card-img-top" [src]="_data+'img/'+pro.imagen" [alt]="pro.nombre" height="190px">            
+            <div class="card-body">
+                <h5 class="card-title">{{pro.nombre}}</h5>
+                <p class="card-text">{{pro.descripcion.substring(0,100)}}…</p>
+                <div class="row d-flex justify-content-center mb-3">
+                    <div class="col-auto text-muted">
+                        <p class="m-0"><strong>Habitaciones</strong></p>
+                        <fa-icon [icon]="faBed"></fa-icon> {{pro.habitaciones}}
+                    </div>
+                    <div class="col-auto text-muted">
+                        <p class="m-0"><strong>Baños</strong></p>
+                        <fa-icon [icon]="faShower"></fa-icon> {{pro.banos}}
+                    </div>
+                    <div class="col-auto text-muted" *ngIf="pro.area != 'N/A'">
+                        <p class="m-0"><strong>Área</strong></p>
+                        <fa-icon [icon]="faVectorSquare"></fa-icon> {{pro.area+pro.medida}}
+                    </div>
+                    <div class="col-auto text-muted" *ngIf="pro.area == 'N/A'">
+                        <p class="m-0"><strong>Área</strong></p>
+                        <fa-icon [icon]="faVectorSquare"></fa-icon> {{pro.area}}
+                    </div>
+                </div>
+                <a [routerLink]="['/pro-single', pro.codigo]" class="btn btn-primary">Ver más</a>
+            </div>
+        </div>        
+    </div>
+    <div class="col-12 d-flex justify-content-center mt-3">
+        <nav>
+            <ul class="pagination pagination-sm">
+                <li class="page-item" [ngClass]="{'disabled': paginaActual == 1}">
+                    <span class="page-link" *ngIf="paginaActual == 1">
+                        <fa-icon [icon]="faAngleDoubleLeft"></fa-icon>
+                    </span>
+                    <a class="page-link" (click)="link(prevPage())" *ngIf="paginaActual != 1" style="cursor: pointer;">
+                        <fa-icon [icon]="faAngleDoubleLeft"></fa-icon>
+                    </a>
+                </li>
+                <li class="page-item" *ngFor="let np of createRange(totalPaginas)" [ngClass]="{'active': paginaActual == np}">
+                    <span class="page-link" *ngIf="paginaActual == np">{{np}}</span>
+                    <a (click)="link(np)" class="page-link" *ngIf="paginaActual != np" style="cursor: pointer;">{{np}}</a>
+                </li>   
+                <li class="page-item" [ngClass]="{'disabled': paginaActual == totalPaginas}">
+                    <span class="page-link" *ngIf="paginaActual == totalPaginas">
+                        <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+                    </span>
+                    <a class="page-link" (click)="link(nextPage())" *ngIf="paginaActual != totalPaginas" style="cursor: pointer;">
+                        <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>    
+</div>

@@ -1,0 +1,96 @@
+<div class="container-fluid">
+    <div class="row main-style contacto">
+        <div class="col-12 d-flex justify-content-center align-items-center slider">
+            <div class="cover"></div>
+            <img [src]="_ruta+'assets/images/bg/bg4.jpg'">
+            <h1 class="text-white mt-5">Contáctanos</h1>
+        </div>
+        <div class="col-12">
+            <div class="row d-flex justify-content-center mx-2 contenido">
+                <div class="col-12 d-flex justify-content-center">
+                    <form #contactoForm="ngForm" (ngSubmit)="onSubmit()" style="max-width: 700px;">
+                        <h3 class="text-center">Contáctenos</h3>
+                        <img [src]="_ruta+'assets/images/resources/locationtip.jpg'" alt="Location" class="img img-fluid mt-2 mb-3">
+                        <hr>
+                        <div class="form-group">
+                            <label for="nombre">Nombre y Apellido:</label>
+                            <input type="text" class="form-control" placeholder="Nombre Apellido" name="nombre"
+                                #nombre="ngModel" [(ngModel)]="contacto.nombre" required>
+                            <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">
+                                <b>Escribe un nombre válido...</b>
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo:</label>
+                            <input type="email" class="form-control" placeholder="correo@correo.com" name="email"
+                                #email="ngModel" [(ngModel)]="contacto.email" required>
+                            <small *ngIf="!email.valid && email.touched" class="text-danger">
+                                <b>Escribe un correo válido...</b>
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="tel" class="form-control" placeholder="829-555-5555" name="telefono"
+                                #telefono="ngModel" [(ngModel)]="contacto.telefono" required>
+                            <small *ngIf="!telefono.valid && telefono.touched" class="text-danger">
+                                <b>Escribe un teléfono válido...</b>
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label for="estado">Estado:</label>
+                            <select name="estado" class="form-control" *ngIf="estados != null"
+                                (change)="onEstado($event)">
+                                <option value="0" class="text-danger">Cualquiera</option>
+                                <option *ngFor="let estado of estados" [value]="estado.nombre">{{estado.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoria">Categoría:</label>
+                            <select name="categoria" class="form-control" *ngIf="categorias != null"
+                                (change)="onCategoria($event)">
+                                <option value="0" class="text-danger">Cualquiera</option>
+                                <option *ngFor="let categoria of categorias" [value]="categoria.nombre">
+                                    {{categoria.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ubicacion">Ubicación:</label>
+                            <select name="ubicacion" class="form-control" *ngIf="ubicaciones != null"
+                                (change)="onUbicacion($event)">
+                                <option value="0" class="text-danger">Cualquiera</option>
+                                <option *ngFor="let ubicacion of ubicaciones" [value]="ubicacion.nombre">
+                                    {{ubicacion.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="lugarExac">Lugar:</label>
+                            <input type="text" class="form-control" placeholder="Moca detrás de la junta..." name="lugarExac"
+                                #lugarExac="ngModel" [(ngModel)]="contacto.lugarExac">
+                        </div>
+                        <div class="from-group">
+                            <label for="mensaje">¿En qué podemos ayudarte? <b>(Si está fuera del país, favor incluir esa información y cuándo viene)</b></label>
+                            <textarea name="mensaje" class="form-control"
+                                placeholder="Quisiera comprar una casa, en tal lugar, con las siguientes características...."
+                                #mensaje="ngModel" [(ngModel)]="contacto.mensaje" required></textarea>
+                            <small *ngIf="!mensaje.valid && mensaje.touched" class="text-danger">
+                                <b>Debes escribir el mensaje...</b>
+                            </small>
+                        </div>
+                        <div class="form-group mt-2">
+                            <re-captcha (resolved)="resolved($event)"
+                                siteKey="6LczGsoZAAAAAHuVQEB2aJaY2NZ0WCnnX4YppPQq"></re-captcha>
+                        </div>
+
+                        <div class="d-flex justify-content-center my-4">
+                            <button id="btnSubir" class="btn btn-primary px-5 py-2"
+                                [disabled]="contactoForm.invalid || !captchaValidated">
+                                <fa-icon [icon]="faPaperPlane" class="icon"></fa-icon> Enviar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

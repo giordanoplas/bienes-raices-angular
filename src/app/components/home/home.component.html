@@ -1,0 +1,95 @@
+<div class="container-fluid m-0 p-0">
+    <div class="row d-flex justify-content-center">
+        <div class="col-12 text-center" *ngIf="sliderImages == null">
+            <img [src]="_ruta+'assets/images/resources/loading7.gif'" alt="Cargando...." width="300px">
+        </div>
+        <div class="col-12">
+            <ngb-carousel *ngIf="sliderImages" class="carousel-fade home-slider">
+                <ng-template ngbSlide *ngFor="let image of sliderImages">
+                    <div class="wrapper">
+                        <img [src]="_data+'img/'+image" alt="Slider"
+                            class="img img-fluid">
+                    </div>
+                    <!--
+                    <div class="carousel-caption">
+                        <h3>Villa de lujo</h3>
+                        <p>Amplia y confortable</p>
+                    </div>
+                    -->
+                </ng-template>
+            </ngb-carousel>            
+        </div>
+        <div class="col socio">
+            <div class="row d-flex justify-content-end mr-5">
+                <div class="col-auto bg-primary p-3">
+                    <h5>¿Deseas vender o alquilar tu propiedad con nosotros?</h5>
+                    <a href="https://wa.me/18295465152" target="_black" class="btn btn-link text-white p-0 mb-1"><fa-icon [icon]="faWhatsapp"></fa-icon> (829) 546-5152</a>
+                    <p class="mb-1"><fa-icon [icon]="faEnvelope"></fa-icon> {{mainEmail}}</p>
+                    <p><fa-icon [icon]="faTty"></fa-icon> (809) 822-7645 / (829) 546-5152</p>
+                    <p class="m-0"><b>TE ASESORAMOS, CUENTA CON NOSOTROS.</b></p>
+                    <!--
+                    <form #socioForm="ngForm">
+                        <h6>¿Pensando comprar o vender una propiedad?</h6>
+                        <div class="custom-control custom-control-inline custom-radio">
+                            <input type="radio" name="socio" id="comprar" class="custom-control-input">
+                            <label for="comprar" class="custom-control-label">Compra</label>
+                        </div>
+                        <div class="custom-control custom-control-inline custom-radio">
+                            <input type="radio" name="socio" id="vender" class="custom-control-input">
+                            <label for="vender" class="custom-control-label">Venta</label>
+                        </div>
+                        <div class="form-group my-2">
+                            <input type="email" class="form-control mb-1" name="email" id="email" placeholder="Correo">
+                            <textarea class="form-control" name="mensaje" id="mensaje" placeholder="Mensaje"></textarea>
+                        </div>
+                        <div class="form-group my-0">
+                            <button class="btn btn-success">Enviar</button>
+                        </div>
+                    </form>
+                    -->
+                </div>
+            </div>
+        </div>
+        <div class="col-12 p-3 buscador">
+            <app-buscador></app-buscador>
+        </div>
+        <div class="col-12 pro text-center pt-5 fondo-diagonal">
+            <app-pro-venta></app-pro-venta>
+        </div>
+        <div class="col-12 pro text-center pt-5 fondo-diagonal2">
+            <app-pro-alquiler></app-pro-alquiler>
+        </div>
+        <div class="col-12 bg-villa"></div>
+        <div class="col-12 pro text-center pt-5">
+            <app-destacadas-home></app-destacadas-home>
+        </div>
+        <div class="col-12 pro text-center pt-5 agentes-home fondo-diagonal3">
+            <app-agentes-home></app-agentes-home>
+        </div>
+        <div class="col-12 text-center text-white frase fondo-diagonal4">
+            <div class="w-100 d-flex justify-content-start comillaL">
+                <img [src]="_ruta+'assets/images/resources/comillaL.png'" width="100px">
+            </div>
+            <p>
+                TU NUEVO COMIENZO EMPIEZA HOY.<br />
+                Tu casa es nuestra prioridad, confía en nosotros.<br />
+                Te acompañamos en este viaje, de principio a fin.
+            </p>
+            <div class="w-100 d-flex justify-content-end comillaR">
+                <img [src]="_ruta+'assets/images/resources/comillaR.png'" width="100px">
+            </div>
+        </div>
+        <div class="col-12 pro text-center pt-5 fondo-diagonal3">
+            <app-servicios-home></app-servicios-home>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center text-white buscar-mas">
+            <div class="cover"></div>
+            <div class="text-center">
+                <p>¿Buscas más?</p>
+                <h5>Habla con nuestros expertos o busca más propiedades.</h5>
+                <button class="btn btn-dark btn-sm" (click)="goContactos()">Contáctanos</button>
+                <button class="btn btn-light btn-sm" (click)="goPropiedades()">Navega más</button>
+            </div>
+        </div>
+    </div>
+</div>

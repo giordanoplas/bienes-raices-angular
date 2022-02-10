@@ -1,0 +1,202 @@
+<div class="container-fluid single">
+    <div class="row d-flex justify-content-center informacion">
+        <div class="col-12 text-center" *ngIf="pro == null">
+            <img [src]="_ruta+'assets/images/resources/loading7.gif'" alt="Cargando...." width="300px">
+        </div>
+        <div class="col-auto col-lg-7 px-4 mb-4" *ngIf="pro != null">
+            <div class="row d-flex justify-content-between">
+                <div class="col-auto col-lg-8">
+                    <h2>{{pro.nombre}}</h2>
+                    <p>
+                        <fa-icon [icon]="faMapMarkedAlt"></fa-icon> {{pro.ubicacion}}
+                    </p>
+                </div>
+                <div class="col-auto">
+                    <h2>{{pro.estado}}</h2>
+                    <h3 class="text-danger">{{pro.moneda+numberWithCommas(pro.precio)}}</h3>
+                </div>
+                <div class="col-12">                
+                    <ngb-carousel *ngIf="imagenes != null" class="carousel-fade">
+                        <ng-template ngbSlide *ngFor="let image of imagenes">
+                            <img [src]="_data+'img/'+image.imagen" alt="Slider" class="img img-fluid"
+                                style="width: 100%; height: 100%; max-height: 500px;">
+                        </ng-template>
+                    </ngb-carousel>
+                    <!--
+                    <div class="thumbnail-arrow mt-1 float-left" *ngIf="imagenes.length > 1">
+                        <button class="btn thumbnail-left h-100" (click)="move('left')">
+                            <fa-icon [icon]="faCaretLeft"></fa-icon>
+                        </button>
+                    </div>
+                    <div class="thumbnail-arrow mt-1 float-right" (click)="move('right')" *ngIf="imagenes.length > 1">
+                        <button class="btn thumbnail-right h-100">
+                            <fa-icon [icon]="faCaretRight"></fa-icon>
+                        </button>
+                    </div>
+                    <div class="thumbnail" *ngIf="imagenes.length > 1">
+                        <ul class="carousel-thumbnail d-block d-md-flex mt-1" id="element">
+                            <li class="carousel-thumbnail__item list-inline-item"
+                                *ngFor="let image of imagenes; let i = index" (click)="cycleToSlide(i)">
+                                <a class="select">
+                                    <img class="carousel-thumbnail__img my-1 my-md-0" [src]="_data+'img/'+image.imagen"
+                                        [id]="'img-select-'+i">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    -->
+                    <div class="thumbnail" *ngIf="imagenes.length > 1">
+                        <ul class="carousel-thumbnail mt-1" id="element">
+                            <li class="carousel-thumbnail__item list-inline-item"
+                                *ngFor="let image of imagenes; let i = index" (click)="cycleToSlide(i)">
+                                <a class="select">
+                                    <img class="carousel-thumbnail__img my-1 my-md-0" [src]="_data+'img/'+image.imagen"
+                                        [id]="'img-select-'+i">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12 mt-3" *ngIf="videos != null">
+                    <h4>Videos</h4>
+                    <div *ngFor="let vid of videos">
+                        <div class="msn-popup bg-white text-center ml-1 mt-4" style="max-width: 200px;" *ngIf="vid.mp_cabecera.length > 0 && vid.mp_mensaje.length > 0">
+                            <img [src]="_ruta+'assets/images/logotipos/logo3.png'" alt="TIP" style="max-width: 70px;"
+                                class="img img-fluid rounded-circle p-1">
+                            <h6>{{vid.mp_cabecera}}</h6>
+                            <p>{{vid.mp_mensaje}}</p>
+                        </div>
+                        <div class="embed-responsive embed-responsive-4by3">
+                            <video class="video-fluid" controls>
+                                <source [src]="_data+'videos/'+vid.video | safe" type="video/mp4" />
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-5 info p-4">
+                    <h2>Información</h2>
+                    <hr>
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-auto">
+                            <h6 class="m-0 text-danger"><b>{{pro.codigo}}</b></h6>
+                            <p class="text-muted">Código</p>
+                            <h6 class="m-0">
+                                <fa-icon [icon]="faBed" class="mr-2"></fa-icon> {{pro.habitaciones}}
+                            </h6>
+                            <p class="text-muted">Habitaciones</p>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="m-0">{{pro.categoria}}</h6>
+                            <p class="text-muted">Categoría</p>
+                            <h6 class="m-0">
+                                <fa-icon [icon]="faToilet" class="mr-2"></fa-icon> {{pro.banos}}
+                            </h6>
+                            <p class="text-muted">Baños</p>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="m-0">{{pro.ubicacion}}</h6>
+                            <p class="text-muted">Ubicación</p>
+                            <h6 class="m-0">
+                                <fa-icon [icon]="faVectorSquare" class="mr-2"></fa-icon> {{pro.area+' '+pro.medida}}
+                            </h6>
+                            <p class="text-muted">Construcción</p>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="m-0">{{pro.moneda+numberWithCommas(pro.precio)}}</h6>
+                            <p class="text-muted">Precio</p>
+                            <h6 class="m-0" *ngIf="pro.vendido==1">
+                                <fa-icon [icon]="faFileAlt"></fa-icon> Vendido
+                            </h6>
+                            <h6 class="m-0 text-success" *ngIf="pro.alquilado==1">
+                                <fa-icon [icon]="faFileAlt"></fa-icon> Alquilado
+                            </h6>
+                            <h6 class="m-0 text-danger" *ngIf="pro.vendido==0 && pro.alquilado==0">
+                                <fa-icon [icon]="faFileAlt"></fa-icon> Disponible
+                            </h6>
+                            <p class="text-muted">Estado</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-3 info p-4">
+                    <h2>Descripción</h2>
+                    <hr>
+                    <p class="text-justify">{{pro.descripcion}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-auto contacto" *ngIf="haveAgente">
+            <div class="card" style="width: 20rem;">
+                <img class="rounded img-fluid" [src]="_ruta+'assets/images/resources/nopersonm.png'" alt="agente.nombre" width="100%" 
+                    *ngIf="(agente.thumb == null || agente.thumb.length == 0) && agente.sexo == 'M'">  
+                <img class="rounded img-fluid" [src]="_ruta+'assets/images/resources/nopersonf.png'" alt="agente.nombre" width="100%" 
+                    *ngIf="(agente.thumb == null || agente.thumb.length == 0) && agente.sexo == 'F'">
+                <img [src]="_data+'img/'+agente.thumb" class="card-img-top img-fluid" [alt]="agente.nombre"
+                    *ngIf="agente.thumb != null && agente.thumb.length > 0">
+                <div class="card-body">
+                    <h3 class="card-title mb-0">{{agente.nombre}}</h3>
+                    <h5 class="card-subtitle mb-3">{{agente.titulo}}</h5>
+                    <p class="card-text">
+                        <fa-icon [icon]="faPhoneVolume"></fa-icon> {{agente.telefono1}} <br />
+                        <fa-icon [icon]="faBuilding"></fa-icon> {{agente.telefono2}} <br />
+                        <fa-icon [icon]="faWhatsapp"></fa-icon> {{agente.telefono3}} <br />
+                        <fa-icon [icon]="faEnvelope"></fa-icon> {{agente.email}} <br />
+                    </p>
+                    <a [href]="agente.facebook" class="card-link facebook">
+                        <fa-icon [icon]="faFacebook"></fa-icon>
+                    </a>
+                    <a [href]="agente.twitter" class="card-link twitter">
+                        <fa-icon [icon]="faTwitter"></fa-icon>
+                    </a>
+                    <a [href]="agente.instagram" class="card-link instagram">
+                        <fa-icon [icon]="faInstagram"></fa-icon>
+                    </a>
+                </div>
+            </div>
+            <div class="form mt-3" style="width: 20rem;">
+                <h5 class="text-center p-3 bg-primary text-white">¿Quieres esta propiedad?</h5>
+                <form #contactoForm="ngForm" (ngSubmit)="onSubmit()" class="p-3">
+                    <div class="form-group">
+                        <label for="nombre">Nombre y Apellido:</label>
+                        <input type="text" class="form-control" placeholder="Nombre Apellido" name="nombre"
+                            #nombre="ngModel" [(ngModel)]="contacto.nombre" required>
+                        <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">
+                            <b>Escribe un nombre válido...</b>
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo:</label>
+                        <input type="email" class="form-control" placeholder="correo@correo.com" name="email"
+                            #email="ngModel" [(ngModel)]="contacto.email" required>
+                        <small *ngIf="!email.valid && email.touched" class="text-danger">
+                            <b>Escribe un correo válido...</b>
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono:</label>
+                        <input type="text" class="form-control" placeholder="829-555-5555" name="telefono"
+                            #telefono="ngModel" [(ngModel)]="contacto.telefono">
+                    </div>
+                    <div class="from-group">
+                        <label for="mensaje">Mensaje:</label>
+                        <textarea name="mensaje" class="form-control" placeholder="Quisiera comprar una casa...."
+                            #mensaje="ngModel" [(ngModel)]="contacto.mensaje" required></textarea>
+                        <small *ngIf="!mensaje.valid && mensaje.touched" class="text-danger">
+                            <b>Debes escribir el mensaje...</b>
+                        </small>
+                    </div>
+                    <div class="form-group mt-2">
+                        <re-captcha (resolved)="resolved($event)" siteKey="6LczGsoZAAAAAHuVQEB2aJaY2NZ0WCnnX4YppPQq">
+                        </re-captcha>
+                    </div>
+
+                    <div class="d-flex justify-content-center my-4">
+                        <button id="btnSubir" class="btn btn-primary px-5 py-2"
+                            [disabled]="contactoForm.invalid || !captchaValidated">
+                            <fa-icon [icon]="faPaperPlane" class="icon"></fa-icon> Enviar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<form #buscadorForm="ngForm" (ngSubmit)="goSearch()">
+    <div class="form-group row d-flex flex-column flex-sm-row">
+        <div class="col-12 col-sm-3 caja">
+            <label for="estado">¿Venta o Alquiler?</label>
+            <select name="estado" class="custom-select custom-select-sm" *ngIf="estados != null" (change)="onEstado($event)">
+                <option value="0" class="text-danger">Cualquiera</option>
+                <option *ngFor="let estado of estados" [value]="estado.nombre">{{estado.nombre}}</option>
+            </select>
+        </div>
+        <div class="col-12 col-sm-3 caja">
+            <label for="categoria">Categoría</label>
+            <select name="categoria" class="custom-select custom-select-sm" *ngIf="categorias != null" (change)="onCategoria($event)">
+                <option value="0" class="text-danger">Cualquiera</option>
+                <option *ngFor="let categoria of categorias" [value]="categoria.nombre">{{categoria.nombre}}</option>
+            </select>
+        </div>
+        <div class="col-12 col-sm-3 caja">
+            <label for="ubicacion">Ubicación</label>
+            <select name="ubicacion" class="custom-select custom-select-sm" *ngIf="ubicaciones != null" (change)="onUbicacion($event)">
+                <option value="0" class="text-danger">Cualquiera</option>
+                <option *ngFor="let ubicacion of ubicaciones" [value]="ubicacion.nombre">{{ubicacion.nombre}}</option>
+            </select>
+        </div>
+        <div class="col-12 col-sm-3 caja">
+            <label for="habitaciones">Habitaciones</label>
+            <select name="habitaciones" class="custom-select custom-select-sm" (change)="onHabitaciones($event)">
+                <option value="0" class="text-danger">Cualquiera</option>
+                <option *ngFor="let hb of habitaciones_banos" [value]="hb">{{hb}}</option>
+            </select>
+        </div>
+        <div class="col-12 col-sm-3 caja mt-3">
+            <label for="banos">Baños</label>
+            <select name="banos" class="custom-select custom-select-sm" (change)="onBanos($event)">
+                <option value="0" class="text-danger">Cualquiera</option>
+                <option *ngFor="let hb of habitaciones_banos" [value]="hb">{{hb}}</option>
+            </select>
+        </div>
+        <div class="col-12 col-sm-6 caja mt-3 text-center">
+            <label for="precios">Rango de Precio:</label>
+            <ngx-slider name="precios" [(value)]="pMin" [(highValue)]="pMax" [options]="options"></ngx-slider>
+            <p class="mt-1">{{pMin.toLocaleString()+' hasta '+pMax.toLocaleString()}}<span *ngIf="pMax===15000000" class="text-primary"><b>{{' '+plus}}</b></span></p>
+        </div>
+        <div class="col-12 col-sm-3 d-block d-md-flex justify-content-end mt-3">
+            <div class="row">
+                <div class="col-12">
+                    <label for="monedas">Moneda</label>
+                    <select name="monedas" class="custom-select custom-select-sm" (change)="onMonedas($event)">
+                        <option value="0" class="text-danger">Cualquiera</option>
+                        <option *ngFor="let data of monedas" [value]="data.nombre">{{data.nombre}}</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-outline-primary w-100 mt-3 mb-1 my-sm-0 mx-0 mx-md-1">
+                        <fa-icon [icon]="faSearch"></fa-icon> Buscar
+                    </button>
+                </div>
+            </div>           
+        </div>
+    </div>
+</form>

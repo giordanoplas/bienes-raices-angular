@@ -1,0 +1,134 @@
+<div class="container-fluid">    
+    <div class="row main-style">
+        <div class="col-12 d-flex justify-content-center align-items-center slider">
+            <div class="cover"></div>
+            <img [src]="_ruta+'assets/images/bg/bg5.jpg'">
+            <h1 class="text-white mt-5">Equipo</h1>
+        </div>
+        <div class="col-12 px-4">
+            <div class="row text-center mt-5" *ngIf="agentes == null">
+                <div class="col">
+                    <h2 class="text-danger">No hay agentes para mostrar...</h2>
+                </div>
+            </div>
+            <div class="contenido agentes px-5 d-flex flex-column align-items-center w-100" *ngIf="agentes != null">                
+                <div class="row mt-5 d-flex justify-content-between agente px-3" *ngFor="let agente of agentes">
+                    <div class="col-auto">
+                        <img class="rounded img-fluid" [src]="_ruta+'assets/images/resources/nopersonm.png'" alt="agente.nombre" width="150px" 
+                            *ngIf="(agente.thumb == null || agente.thumb.length == 0) && agente.sexo == 'M'">  
+                        <img class="rounded img-fluid" [src]="_ruta+'assets/images/resources/nopersonf.png'" alt="agente.nombre" width="150px" 
+                            *ngIf="(agente.thumb == null || agente.thumb.length == 0) && agente.sexo == 'F'">   
+                        <img [src]="_data+'img/'+agente.thumb" [alt]="agente.nombre" width="150px"
+                            class="rounded img-fluid" *ngIf="agente.thumb != null && agente.thumb.length > 0">
+                    </div>                
+                    <div class="col mt-4">                    
+                        <h4 class="w-100 m-0">{{agente.nombre}}</h4>
+                        <a [href]="agente.facebook" class="btn btn-link p-1">
+                            <fa-icon [icon]="faFacebook"></fa-icon>
+                        </a>
+                        <a [href]="agente.twitter" class="btn btn-link p-1">
+                            <fa-icon [icon]="faTwitter"></fa-icon>
+                        </a>
+                        <a [href]="agente.instagram" class="btn btn-link p-1">
+                            <fa-icon [icon]="faInstagram"></fa-icon>
+                        </a>
+                    </div>
+                    <div class="col-auto contactos mt-4">
+                        <h5>Contactos:</h5>
+                        <p class="text-primary m-0">{{agente.telefono1}}</p>
+                        <p class="text-primary m-0">{{agente.telefono2}}</p>
+                        <p class="text-primary m-0">{{agente.email}}</p>
+                    </div>      
+                    <div class="col-12 my-4 text-justify">
+                        <p class="m-0">{{agente.descripcion}}</p>
+                    </div>         
+                </div>
+
+                <!--
+    
+                <div class="row mt-5 d-flex justify-content-between agente px-3">
+                    <div class="col-auto">
+                        <img [src]="_ruta+'assets/images/agentes/agente2.jpg'" alt="Agente 1" width="150px"
+                            class="rounded img-fluid">
+                    </div>                
+                    <div class="col mt-4">                    
+                        <h4 class="w-100 m-0">Melissa William</h4>
+                        <a href="#" class="btn btn-link p-1">
+                            <fa-icon [icon]="faFacebook"></fa-icon>
+                        </a>
+                        <a href="#" class="btn btn-link p-1">
+                            <fa-icon [icon]="faTwitter"></fa-icon>
+                        </a>
+                        <a href="#" class="btn btn-link p-1">
+                            <fa-icon [icon]="faInstagram"></fa-icon>
+                        </a>
+                    </div>
+                    <div class="col-auto contactos mt-4">
+                        <h5>Contactos:</h5>
+                        <p class="text-primary m-0">(829) 555-5555</p>
+                        <p class="text-primary m-0">correo@correo.com</p>
+                    </div>      
+                    <div class="col-12 my-4 text-justify">
+                        <p class="m-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat odio, blanditiis doloribus autem beatae eius optio, architecto explicabo vitae saepe unde doloremque sapiente sint aliquam. Repellendus aut, voluptate voluptatibus doloribus vitae unde optio fugit vel maiores iusto, eligendi eum sint perferendis laboriosam, labore dolorem facere praesentium! Est id quasi ipsum.</p>
+                    </div>         
+                </div>
+    
+                <div class="row mt-5 d-flex justify-content-between agente px-3">
+                    <div class="col-auto">
+                        <img [src]="_ruta+'assets/images/agentes/agente3.jpg'" alt="Agente 1" width="150px"
+                            class="rounded img-fluid">
+                    </div>                
+                    <div class="col mt-4">                    
+                        <h4 class="w-100 m-0">Alice Brian</h4>
+                        <a href="#" class="btn btn-link p-1">
+                            <fa-icon [icon]="faFacebook"></fa-icon>
+                        </a>
+                        <a href="#" class="btn btn-link p-1">
+                            <fa-icon [icon]="faTwitter"></fa-icon>
+                        </a>
+                        <a href="#" class="btn btn-link p-1">
+                            <fa-icon [icon]="faInstagram"></fa-icon>
+                        </a>
+                    </div>
+                    <div class="col-auto contactos mt-4">
+                        <h5>Contactos:</h5>
+                        <p class="text-primary m-0">(829) 555-5555</p>
+                        <p class="text-primary m-0">correo@correo.com</p>
+                    </div>      
+                    <div class="col-12 my-4 text-justify">
+                        <p class="m-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, asperiores reiciendis nam saepe eligendi blanditiis beatae magni debitis atque ipsum vero cum, animi expedita. Perspiciatis rem, corrupti reprehenderit veniam libero quae officia culpa facere obcaecati, eaque cum quasi. Nulla ab blanditiis commodi laudantium aperiam dolore, tempora vero quisquam non et!</p>
+                    </div>         
+                </div>
+    
+                <div class="row my-5 d-flex justify-content-between agente px-3">
+                    <div class="col-auto">
+                        <img [src]="_ruta+'assets/images/agentes/agente4.jpg'" alt="Agente 1" width="150px"
+                            class="rounded img-fluid">
+                    </div>                
+                    <div class="col mt-4">                    
+                        <h4 class="w-100 m-0">John David</h4>
+                        <a href="#" class="btn btn-link p-1">
+                            <fa-icon [icon]="faFacebook"></fa-icon>
+                        </a>
+                        <a href="#" class="btn btn-link p-1">
+                            <fa-icon [icon]="faTwitter"></fa-icon>
+                        </a>
+                        <a href="#" class="btn btn-link p-1">
+                            <fa-icon [icon]="faInstagram"></fa-icon>
+                        </a>
+                    </div>
+                    <div class="col-auto contactos mt-4">
+                        <h5>Contactos:</h5>
+                        <p class="text-primary m-0">(829) 555-5555</p>
+                        <p class="text-primary m-0">correo@correo.com</p>
+                    </div>      
+                    <div class="col-12 my-4 text-justify">
+                        <p class="m-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos fugit porro asperiores voluptatibus animi labore, velit magni quas itaque sit vel fugiat hic magnam tempora soluta, rem distinctio at, incidunt inventore unde quisquam nulla harum! Doloribus praesentium vitae fugit asperiores vero? Quam, nesciunt facere! Tenetur veniam assumenda quasi blanditiis soluta!</p>
+                    </div>         
+                </div>
+            </div>
+            -->
+            
+        </div>
+    </div>
+</div>

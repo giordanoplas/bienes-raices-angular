@@ -1,0 +1,26 @@
+<h4>Conoce a Nuestros</h4>
+<h2>Agentes</h2>
+<p class="mb-2">Ponte en contacto con nuestros agentes inmobiliarios profesionales.</p>
+<div class="row text-center" *ngIf="agentes == null">
+    <div class="col">
+        <img [src]="_ruta+'assets/images/resources/loading7.gif'" alt="Cargando...." width="200px">
+    </div>
+</div>
+<div class="row d-flex justify-content-center mt-5" *ngIf="agentes != null">
+    <div class="col-auto mt-2" *ngFor="let agente of agentes">
+        <div class="card align-items-center justify-content-center" style="width: 10rem;">            
+            <img class="rounded" [src]="_ruta+'assets/images/resources/nopersonm.png'" alt="agente.nombre" 
+                *ngIf="(agente.thumb == null || agente.thumb.length == 0) && agente.sexo == 'M'">  
+            <img class="rounded" [src]="_ruta+'assets/images/resources/nopersonf.png'" alt="agente.nombre" 
+                *ngIf="(agente.thumb == null || agente.thumb.length == 0) && agente.sexo == 'F'">    
+            <img class="rounded" [src]="_data+'img/'+agente.thumb" alt="agente.nombre" 
+                *ngIf="agente.thumb != null && agente.thumb.length > 0">      
+            <div class="card-body px-2 pt-0 pb-2">
+                <a [routerLink]="['/agentes']" class="btn btn-link">{{agente.nombre}}</a>
+                <p class="card-text">{{agente.telefono1}} <br/>{{agente.email}}</p>
+                <h6 class="text-muted">{{agente.pl}}</h6>
+                <p>Propiedades Listadas</p>
+            </div>
+        </div>
+    </div>
+</div>

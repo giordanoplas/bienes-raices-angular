@@ -1,0 +1,68 @@
+<div class="container-fluid">
+    <div class="row main-style">
+        <div class="col-12 d-flex justify-content-center align-items-center slider">
+            <div class="cover"></div>
+            <img [src]="_ruta+'assets/images/bg/bg7.jpg'">
+            <h1 class="text-white mt-5">Miami</h1>
+        </div>
+        <div class="col-12 d-flex propiedades mt-4">
+            <div class="row w-100 informacion mx-2">
+                <div class="col-12 text-center" *ngIf="propiedadesP == null">
+                    <img [src]="_ruta+'assets/images/resources/loading7.gif'" alt="Cargando...." width="300px">
+                </div>
+                <div class="col-12 text-center" *ngIf="propiedadesP != null && propiedadesP.length == 0">
+                    <h2 class="text-danger">No hay propiedades a mostrar...</h2>
+                </div>
+                <div class="col-auto" *ngIf="propiedadesP != null && propiedadesP.length > 0">
+                    <div class="card-columns">                        
+                        <div class="card" *ngFor="let pro of propiedadesP">
+                            <span class="badge badge-primary m-2" *ngIf="pro.estadoOrden==1">{{pro.estado}}</span>
+                            <span class="badge badge-success m-2" *ngIf="pro.estadoOrden==2">{{pro.estado}}</span>
+                            <img [src]="_data+'img/'+pro.imagen" class="card-img-top img-fluid" [alt]="pro.nombre">
+                            <div class="card-body">
+                                <h3 class="card-title">{{pro.nombre}}</h3>
+                                <b>Precio:</b> <span class="precio ml-2">{{pro.moneda+numberWithCommas(pro.precio)}}</span>
+                                <p class="card-text mt-1">
+                                    <fa-icon [icon]="faMapPin"></fa-icon> {{pro.ubicacion}}
+                                    <br/>
+                                    <fa-icon [icon]="faBed"></fa-icon> {{pro.habitaciones}} Habitaciones
+                                    <br/>
+                                    <fa-icon [icon]="faToilet"></fa-icon> {{pro.banos}} Baños
+                                    <br/>
+                                    <fa-icon [icon]="faArrowsAlt"></fa-icon> {{pro.area+' '+pro.medida}}
+                                </p>
+                                <a [routerLink]="['/pro-single', pro.codigo]" class="btn btn-primary btn-block btn-bg">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center mt-3">
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item" [ngClass]="{'disabled': paginaActual == 1}">
+                                    <span class="page-link" *ngIf="paginaActual == 1">
+                                        <fa-icon [icon]="faAngleDoubleLeft"></fa-icon>
+                                    </span>
+                                    <a class="page-link" (click)="link(prevPage())" *ngIf="paginaActual != 1" style="cursor: pointer;">
+                                        <fa-icon [icon]="faAngleDoubleLeft"></fa-icon>
+                                    </a>
+                                </li>
+                                <li class="page-item" *ngFor="let np of createRange(totalPaginas)" [ngClass]="{'active': paginaActual == np}">
+                                    <span class="page-link" *ngIf="paginaActual == np">{{np}}</span>
+                                    <a (click)="link(np)" class="page-link" *ngIf="paginaActual != np" style="cursor: pointer;">{{np}}</a>
+                                </li>   
+                                <li class="page-item" [ngClass]="{'disabled': paginaActual == totalPaginas}">
+                                    <span class="page-link" *ngIf="paginaActual == totalPaginas">
+                                        <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+                                    </span>
+                                    <a class="page-link" (click)="link(nextPage())" *ngIf="paginaActual != totalPaginas" style="cursor: pointer;">
+                                        <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

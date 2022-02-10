@@ -1,0 +1,26 @@
+<h4>Explora</h4>
+<h2>Propiedades Destacadas</h2>
+<p class="mb-2">Revisa nuestras propiedades destacadas...</p>
+<div class="row text-center" *ngIf="propiedades == null">
+    <div class="col">
+        <img [src]="_ruta+'assets/images/resources/loading7.gif'" alt="Cargando...." width="200px">
+    </div>
+</div>
+<div class="row justify-content-center destacadas" *ngIf="propiedades != null">
+    <div class="col-auto mt-2">
+        <ngb-carousel class="carousel">
+            <ng-template ngbSlide *ngFor="let pro of propiedades">
+                <div class="wrapper">
+                    <a [routerLink]="['/pro-single', pro.codigo]">
+                        <img [src]="_data+'img/'+pro.imagen" alt="{{pro.nombre}}" class="img img-fluid">
+                    </a>
+                </div>
+                <div class="carousel-caption p-2">
+                    <h5>{{pro.nombre}}</h5>
+                    <p>{{pro.descripcion.substring(0,100)}}…</p>
+                </div>
+            </ng-template>
+        </ngb-carousel>
+    </div>    
+</div>
+

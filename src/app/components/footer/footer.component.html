@@ -1,0 +1,87 @@
+<footer class="container-fluid mt-4">
+    <div class="row contactos bg-primary d-flex justify-content-between align-items-center mx-2 p-5">
+        <div class="col-auto p-0 text-white">
+            <h3 class="m-0">¿Pensando comprar o vender una propiedad?</h3>
+            <p>Te asesoramos, cuenta con nosotros.</p>
+        </div>
+        <div class="col-auto">
+            <a href="https://wa.me/18295465152" target="_black" class="btn btn-primary p-3">
+                <fa-icon [icon]="faWhatsapp"></fa-icon> (829) 546-5152
+            </a>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center contenido p-5">
+        <div class="col-12 col-md-3 text-center">
+            <img [src]="_ruta+'assets/images/logotipos/logo.png'" alt="Tu inmueble perfecto" style="max-width: 150px" class="img img-fluid mb-2">
+            <p class="text-white text-justify">Somos una empresa dedicada al buen trato, trabajo y buen servicio para satisfacer y hacer feliz a nuestros clientes con sus propiedades soñadas.</p>
+        </div>
+        <div class="col-auto text-white">
+            Contáctanos:
+            <ul class="mt-2">
+                <fa-icon [icon]="faMapMarkedAlt" class="mr-2"></fa-icon> <b>Oficina</b>
+                <li>
+                    <p>
+                        Duarte esq. Imbert, plaza Esthela 2do nivel,<br/> 
+                        local B-4, Moca Espaillat.
+                    </p>
+                </li>
+                <fa-icon [icon]="faPhoneVolume" class="mr-2"></fa-icon> <b>Llámanos</b>
+                <li>
+                    <p>
+                        (829) 546-5152
+                    </p>
+                </li>
+                <fa-icon [icon]="faEnvelopeOpenText" class="mr-2"></fa-icon> <b>Correo</b>
+                <li>
+                    <p>
+                        {{mainEmail}}
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="col-auto text-white">
+            Enlaces Rápidos:
+            <ul class="mt-2">
+                <li>
+                    <fa-icon [icon]="faCaretRight" class="mr-2"></fa-icon><a [routerLink]="['/']">Inicio</a>
+                </li>
+                <li>
+                    <fa-icon [icon]="faCaretRight" class="mr-2"></fa-icon><a [routerLink]="['/nosotros']">Nosotros</a>
+                </li>
+                <li>
+                    <fa-icon [icon]="faCaretRight" class="mr-2"></fa-icon><a [routerLink]="['/miami']">Miami</a>
+                </li>
+                <li>
+                    <fa-icon [icon]="faCaretRight" class="mr-2"></fa-icon><a
+                        [routerLink]="['/propiedades']">Propiedades</a>
+                </li>
+                <li>
+                    <fa-icon [icon]="faCaretRight" class="mr-2"></fa-icon><a [routerLink]="['/agentes']">Agentes</a>
+                </li>
+                <li>
+                    <fa-icon [icon]="faCaretRight" class="mr-2"></fa-icon><a [routerLink]="['/galeria']">Galería</a>
+                </li>
+                <li>
+                    <fa-icon [icon]="faCaretRight" class="mr-2"></fa-icon><a [routerLink]="['/contacto']">Contacto</a>
+                </li>
+            </ul>
+        </div>        
+        <div class="col-12 redes-sociales d-flex justify-content-center mt-3">
+            <a href="https://www.instagram.com/tuinmuebleperfectord/?hl=en" target="_black">
+                <fa-icon [icon]="faInstagram" class="icono instagram"></fa-icon>
+            </a>
+            <a href="https://www.facebook.com/tuinmuebleperfect/" target="_black">
+                <fa-icon [icon]="faFacebookF" class="icono facebook"></fa-icon>
+            </a>
+        </div>        
+        <div class="col-12 text-center text-white mt-4">
+            TU INMUEBLE PERFECTO Copyright <fa-icon [icon]="faCopyright"></fa-icon> 2021
+        </div>
+        <div class="col-12 text-white text-center copyright mt-2">            
+            CREATED BY 
+            <a href="https://gpdesign.site/" target="_black" class="mr-2">
+                <img [src]="_ruta+'assets/images/logotipos/gpdesign.png'" alt="GP Design" width="50px">
+            </a>            
+        </div>
+    </div>
+</footer>
